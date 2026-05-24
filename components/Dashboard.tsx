@@ -12,6 +12,12 @@ import ConfirmDialog from "./ui/ConfirmDialog";
 // Shared Types & Utilities
 import { FinancialRecord, FinancialSummary } from "../lib/types";
 import { GQL, parsePurpose } from "../lib/utils";
+import {
+  GET_ALL_RECORDS_AND_SUMMARY,
+  CREATE_RECORD,
+  UPDATE_RECORD,
+  DELETE_RECORD,
+} from "../lib/graphql";
 
 // Subcomponents
 import Header from "./dashboard/Header";
@@ -61,10 +67,7 @@ export default function Dashboard({ onLogout }: DashboardProps) {
       if (search.trim()) vars.search = search.trim();
       try {
         const json = await GQL({
-          query: `query GetAll($category:TransactionCategory,$type:TransactionType,$search:String){
-          getRecords(category:$category,type:$type,search:$search){id date amount category type purpose fileAttachment createdAt}
-          getFinancialSummary{globalBalance totalInflow totalOutflow investorBalance employeeBalance totalFeesCollected totalExpensesPaid}
-        }`,
+          query: GET_ALL_RECORDS_AND_SUMMARY,
           variables: vars,
         });
         if (json.errors) throw new Error(json.errors[0].message);
@@ -99,9 +102,7 @@ export default function Dashboard({ onLogout }: DashboardProps) {
       finalPurpose = `[${data.partyName.trim()}] ${finalPurpose}`;
     try {
       const json = await GQL({
-        query: `mutation C($date:String!,$amount:Float!,$category:TransactionCategory!,$type:TransactionType!,$purpose:String,$fileAttachment:String){
-          createRecord(date:$date,amount:$amount,category:$category,type:$type,purpose:$purpose,fileAttachment:$fileAttachment){id}
-        }`,
+        query: CREATE_RECORD,
         variables: {
           date: data.date,
           amount: data.amount,
@@ -136,9 +137,7 @@ export default function Dashboard({ onLogout }: DashboardProps) {
       finalPurpose = `[${data.partyName.trim()}] ${finalPurpose}`;
     try {
       const json = await GQL({
-        query: `mutation U($id:ID!,$date:String,$amount:Float,$category:TransactionCategory,$type:TransactionType,$purpose:String,$fileAttachment:String){
-          updateRecord(id:$id,date:$date,amount:$amount,category:$category,type:$type,purpose:$purpose,fileAttachment:$fileAttachment){id}
-        }`,
+        query: UPDATE_RECORD,
         variables: {
           id: editingRecord.id,
           date: data.date,
@@ -164,7 +163,7 @@ export default function Dashboard({ onLogout }: DashboardProps) {
     setActionLoading(true);
     try {
       const json = await GQL({
-        query: `mutation D($id:ID!){deleteRecord(id:$id)}`,
+        query: DELETE_RECORD,
         variables: { id: confirmDelete },
       });
       if (json.errors) throw new Error(json.errors[0].message);
