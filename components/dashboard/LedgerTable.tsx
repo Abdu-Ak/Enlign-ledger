@@ -45,8 +45,13 @@ export default function LedgerTable({
             className="text-sm font-semibold flex items-center gap-2 min-w-0"
             style={{ color: "var(--text-base)" }}
           >
-            <FileText className="h-4 w-4 shrink-0" style={{ color: "var(--text-muted)" }} />
-            <span className="hidden md:inline truncate">Audit Transaction Ledger</span>
+            <FileText
+              className="h-4 w-4 shrink-0"
+              style={{ color: "var(--text-muted)" }}
+            />
+            <span className="hidden md:inline truncate">
+              Audit Transaction Ledger
+            </span>
             <span className="md:hidden truncate">Transaction Ledger</span>
           </h2>
           {records.length > 0 && (
@@ -59,8 +64,12 @@ export default function LedgerTable({
                 color: "var(--text-muted)",
                 background: "var(--surface-2)",
               }}
-              onMouseOver={(e) => (e.currentTarget.style.background = "var(--border)")}
-              onMouseOut={(e) => (e.currentTarget.style.background = "var(--surface-2)")}
+              onMouseOver={(e) =>
+                (e.currentTarget.style.background = "var(--border)")
+              }
+              onMouseOut={(e) =>
+                (e.currentTarget.style.background = "var(--surface-2)")
+              }
             >
               <Download className="h-3.5 w-3.5" />
             </button>
@@ -93,7 +102,7 @@ export default function LedgerTable({
                 <Th>Direction</Th>
                 <Th>Description</Th>
                 <Th align="center">Receipt</Th>
-                <Th align="right">Amount</Th>
+                <Th>Amount</Th>
                 <Th align="center">Action</Th>
               </TableHead>
               <TableBody>
@@ -158,7 +167,7 @@ export default function LedgerTable({
                             </span>
                           )}
                         </Td>
-                        <Td align="right">
+                        <Td>
                           <span
                             className="font-bold"
                             style={{
@@ -254,9 +263,7 @@ export default function LedgerTable({
                       <span
                         className="text-base font-bold"
                         style={{
-                          color: isCredit
-                            ? "var(--credit)"
-                            : "var(--debit)",
+                          color: isCredit ? "var(--credit)" : "var(--debit)",
                         }}
                       >
                         {isCredit ? "+" : "−"}
