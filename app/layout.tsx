@@ -14,8 +14,15 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Enlighn learning hub — Finance Tracker",
-  description: "High-security administrative ledger tracking institutional inflows and outflows with cryptographic-grade logging.",
-  keywords: ["Ledger", "Finance Tracker", "Institutional Wallet", "Secure Ledger", "Enlighn learning hub"],
+  description:
+    "High-security administrative ledger tracking institutional inflows and outflows with cryptographic-grade logging.",
+  keywords: [
+    "Ledger",
+    "Finance Tracker",
+    "Institutional Wallet",
+    "Secure Ledger",
+    "Enlighn learning hub",
+  ],
   icons: {
     icon: "/favicon.ico",
   },
@@ -39,7 +46,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
       style={{ colorScheme: "dark" }}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground antialiased selection:bg-white/[0.08] selection:text-white">
+      <body className="min-h-full flex flex-col bg-background text-foreground antialiased selection:bg-white/8 selection:text-white">
         {children}
       </body>
     </html>
