@@ -1,9 +1,12 @@
+export type TransactionType = "CREDIT" | "DEBIT";
+export type TransactionCategory = "INVESTOR" | "EMPLOYEE" | "STUDENT_FEE" | "EXPENSE";
+
 export interface FinancialRecord {
   id: string;
   date: string;
   amount: number;
-  category: "INVESTOR" | "EMPLOYEE" | "STUDENT_FEE" | "EXPENSE";
-  type: "CREDIT" | "DEBIT";
+  category: TransactionCategory;
+  type: TransactionType;
   purpose?: string | null;
   fileAttachment?: string | null;
   createdAt: string;
