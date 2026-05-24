@@ -23,6 +23,7 @@ interface Props {
   serverError: string | null;
   initialValues?: TransactionFormValues;
   isEdit?: boolean;
+  initialFileAttachment?: string | null;
 }
 
 const CATEGORY_OPTIONS = [
@@ -33,9 +34,19 @@ const CATEGORY_OPTIONS = [
 ];
 const TYPE_OPTIONS = [{ value: "CREDIT", label: "Credit (Inflow)" }, { value: "DEBIT", label: "Debit (Outflow)" }];
 
-export default function TransactionModal({ onClose, onSubmit, serverError, initialValues, isEdit = false }: Props) {
-  const [fileBase64, setFileBase64] = React.useState<string | null>(null);
-  const [fileName, setFileName] = React.useState<string | null>(null);
+export default function TransactionModal({ onClose, onSubmit, serverError, initialValues, isEdit = false, initialFileAttachment }: Props) {
+  const [fileBase64, setFileBase64] = React.useState<string | null>(initialFileAttachment || null);
+  const [fileName, setFileName] = React.useState<string | null>(() => {
+    if (!initialFileAttachment) return null;
+    try {
+      const decoded = decodeURIComponent(initialFileAttachment);
+      const parts = decoded.split("/");
+      const lastPart = parts[parts.length - 1];
+      return lastPart.split("?")[0] || "receipt-file";
+    } catch {
+      return "receipt-file";
+    }
+  });
   const [fileError, setFileError] = React.useState<string | null>(null);
 
   const { register, handleSubmit, watch, setValue, control, formState: { errors, isSubmitting } } = useForm<TransactionFormValues>({
@@ -176,7 +187,7 @@ export default function TransactionModal({ onClose, onSubmit, serverError, initi
                 <div className="flex items-center gap-2 text-sm" style={{ color: "var(--text-muted)" }}>
                   <Paperclip className="h-4 w-4" />
                   <span className="truncate max-w-[200px]">{fileName}</span>
-                  <button type="button" onClick={e => { e.preventDefault(); setFileName(null); setFileBase64(null); }}
+                  <button type="button" onClick={e => { e.preventDefault(); e.stopPropagation(); setFileName(null); setFileBase64(null); }}
                     className="h-5 w-5 rounded-full flex items-center justify-center" style={{ color: "var(--text-faint)" }}>
                     <X className="h-3 w-3" />
                   </button>

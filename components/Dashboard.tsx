@@ -257,6 +257,7 @@ export default function Dashboard({ onLogout }: DashboardProps) {
           onSubmit={editingRecord ? handleEditSubmit : handleFormSubmit}
           serverError={formError}
           isEdit={!!editingRecord}
+          initialFileAttachment={editingRecord?.fileAttachment}
           initialValues={
             editingRecord
               ? {

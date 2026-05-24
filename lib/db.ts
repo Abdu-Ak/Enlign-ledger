@@ -54,7 +54,7 @@ export async function updateRecord(
   const doc = await Transaction.findByIdAndUpdate(
     id,
     { $set: input },
-    { new: true, runValidators: true }
+    { returnDocument: "after", runValidators: true }
   ).lean();
 
   if (!doc) throw new Error("Record not found");
