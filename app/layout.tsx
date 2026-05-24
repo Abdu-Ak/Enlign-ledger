@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Vault Ledger — Institutional Finance Tracker",
+  title: "Enlighn learning hub — Finance Tracker",
   description: "High-security administrative ledger tracking institutional inflows and outflows with cryptographic-grade logging.",
-  keywords: ["Ledger", "Finance Tracker", "Institutional Wallet", "Secure Ledger", "Vault Terminal"],
+  keywords: ["Ledger", "Finance Tracker", "Institutional Wallet", "Secure Ledger", "Enlighn learning hub"],
   icons: {
     icon: "/favicon.ico",
   },
